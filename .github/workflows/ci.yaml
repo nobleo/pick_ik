@@ -6,38 +6,27 @@ on:
   push:
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/picknikrobotics/pick_ik:ci
-    env:
-      CCACHE_DIR: ${{ github.workspace }}/.ccache
+  industrial_ci:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - env:
+              ROS_DISTRO: humble
+              ROS_REPO: main
+          - env:
+              ROS_DISTRO: jazzy
+              ROS_REPO: main
+          - env:
+              ROS_DISTRO: kilted
+              ROS_REPO: main
+          - env:
+              ROS_DISTRO: lyrical
+              ROS_REPO: main
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-      - name: Cache ccache
-        uses: pat-s/always-upload-cache@v3.0.11
-        with:
-          path: ${{ env.CCACHE_DIR }}
-          key: ccache-${{ github.sha }}-${{ github.run_id }}
-          restore-keys: |
-            ccache-${{ github.sha }}
-            ccache
-      - name: Source ROS Workspaces
-        run: |
-          . /opt/ros/rolling/setup.sh
-          echo "$(env)" >> $GITHUB_ENV
-      - name: Install dependencies from package.xml
-        run: |
-          # Refresh ROS GPG key (the one baked into the CI container has expired)
-          curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | apt-key add -
-          rosdep update
-          apt-get update
-          rosdep install --from-paths . --ignore-src --rosdistro rolling -y
-      - name: Configure
-        run: cmake --preset relwithdebinfo
-      - name: Build
-        working-directory: ./build/relwithdebinfo
-        run: ninja
-      - name: Test
-        working-directory: ./build/relwithdebinfo
-        run: ctest . --rerun-failed --output-on-failure
+      - name: Run industrial_ci
+        uses: ros-industrial/industrial_ci@master
+        env: ${{ matrix.env }}
