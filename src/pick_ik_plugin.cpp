@@ -2,9 +2,9 @@
 #include <pick_ik/goal.hpp>
 #include <pick_ik/ik_gradient.hpp>
 #include <pick_ik/ik_memetic.hpp>
+#include <pick_ik/pick_ik_parameters.hpp>
 #include <pick_ik/pick_ik_plugin.hpp>
 
-#include <pick_ik/pick_ik_parameters.hpp>
 #include <pluginlib/class_list_macros.hpp>
 #include <rclcpp/rclcpp.hpp>
 

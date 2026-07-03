@@ -1,9 +1,10 @@
 #pragma once
 
+#include <tf2/LinearMath/Vector3.hpp>
+
 #include <memory>
 #include <moveit/robot_model/joint_model.h>
 #include <moveit/robot_model/robot_model.h>
-#include <tf2/LinearMath/Vector3.hpp>
 #include <vector>
 
 namespace pick_ik {

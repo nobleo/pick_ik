@@ -1,11 +1,12 @@
 #include <pick_ik/forward_kinematics.hpp>
 
+#include <tf2/LinearMath/Vector3.hpp>
+
 #include <algorithm>
 #include <cassert>
 #include <iterator>
 #include <memory>
 #include <moveit/robot_model/robot_model.h>
-#include <tf2/LinearMath/Vector3.hpp>
 #include <vector>
 
 namespace pick_ik {
