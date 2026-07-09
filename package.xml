@@ -21,6 +21,7 @@
   <depend>tf2_kdl</depend>
   <depend>tl_expected</depend>
 
+  <test_depend>git</test_depend>
   <test_depend>moveit_resources_panda_moveit_config</test_depend>
 
   <export>
