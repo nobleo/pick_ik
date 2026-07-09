@@ -15,7 +15,11 @@ jobs:
           - {ROS_DISTRO: humble, ROS_REPO: main}
           - {ROS_DISTRO: jazzy, ROS_REPO: main}
           - {ROS_DISTRO: kilted, ROS_REPO: main}
-          - {ROS_DISTRO: rolling, ROS_REPO: main}
+          # Rolling has migrated to Ubuntu Resolute. Packages land in
+          # ros2-testing first; the ros2 (main) repo lags during the base-OS
+          # transition. Point at testing + resolute so we exercise real
+          # rolling instead of the frozen Noble fossil.
+          - {ROS_DISTRO: rolling, ROS_REPO: testing, OS_CODE_NAME: resolute}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
